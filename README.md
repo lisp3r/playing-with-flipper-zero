@@ -56,3 +56,11 @@ int32_t hello_world(void* p) {
 ### Studying
 
 * Simple GUI app (does nothing): [simple_app_1](studying/simple_app_1/)
+* Simple GUI app (does nothing) with input callback: [simple_app_2](studying/simple_app_2/)
+
+## Resourses
+* [Flipper Zero Firmware Documentation](https://doxy.flipperzero.one/dev/index.html)
+* ["Сборка Hello World под Flipper Zero" by Pavel Yakovlev](https://yakovlev.me/hello-flipper-zero/)
+* [Flipper Hello World app](https://github.com/giolaq/helloflipper)
+* [The Flipper Zero user interface editor](https://ilin.pt/stuff/fui-editor/)
+* WARNING: this one is completely outdated though is a good step by step guide for newbies. [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin)
