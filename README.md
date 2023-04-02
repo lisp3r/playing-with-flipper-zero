@@ -1,9 +1,29 @@
 # Coding for Flipper Zero :flipper:
 notes on writing applications for flipper zero
 
-## Build
+## Install and build
 
-    $ ./fbt launch_app APPSRC=appid
+1. Install dev formware on your Flipper. Honestly IDK if it nesessiry or not but it sawed me from the "API mismatch" error.
+2. Download Flipper Zero firmware:
+
+    ```
+    $ mkdir -p ~/flipperZero/official/
+    $ cd ~/flipperZero/official/
+    $ git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git ./
+    $ ./fbt
+    ```
+3. Move your app into `~/flipperZero/official/applications_user` folder.
+4. Build
+
+    ```sh
+    $ cd ~/flipperZero/official/
+    
+    # build
+    $ ./fbt fap_<appid>
+    
+    # or build and install and launch
+    $ ./fbt launch_app APPSRC=<appid>
+    ```
 
 ## Debug
 
@@ -59,8 +79,11 @@ int32_t hello_world(void* p) {
 * Simple GUI app (does nothing) with input callback: [simple_app_2](studying/simple_app_2/)
 
 ## Resourses
+* [Flipper Zero Documentation](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/documentation) - incomplete but still useful. Read it first.
+* [Flipper Zero Example Apps](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/examples) - some examples for .
 * [Flipper Zero Firmware Documentation](https://doxy.flipperzero.one/dev/index.html)
 * ["Сборка Hello World под Flipper Zero" by Pavel Yakovlev](https://yakovlev.me/hello-flipper-zero/)
 * [Flipper Hello World app](https://github.com/giolaq/helloflipper)
 * [The Flipper Zero user interface editor](https://ilin.pt/stuff/fui-editor/)
+* [FlipperZero_plugin_howto](https://github.com/csBlueChip/FlipperZero_plugin_howto) - detailed installation description + complicated and overcommented plugin code.
 * WARNING: this one is completely outdated though is a good step by step guide for newbies. [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin)
