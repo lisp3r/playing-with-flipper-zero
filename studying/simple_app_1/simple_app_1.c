@@ -8,6 +8,7 @@
 // tag for logs
 #define TAG "simple_app_1"
 
+
 typedef struct {
     Gui* gui;
     ViewPort* view_port;
@@ -46,10 +47,14 @@ void app_free(App* app) {
 int32_t simple_app_1_main(void* p) {
     UNUSED(p);
 
+    FURI_LOG_I(TAG, "Start the app");
+
     App* app = app_alloc();
     furi_delay_ms(2000);
 
     app_free(app);
+
+    FURI_LOG_I(TAG, "Finish the app, exiting...");
 
     return 0;
 }

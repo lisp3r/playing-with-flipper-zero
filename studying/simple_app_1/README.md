@@ -6,4 +6,4 @@ What to learn here?
 * How to add an icon to the app
 * How to log shit
 
-## Build
+![screenshot](Screenshot-20230402-193400.png)

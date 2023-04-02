@@ -29,8 +29,6 @@ $ screen -list
 $ screen -X -S <sess name> quit  # lol don't blame me
 ```
 
-
-
 ## Code
 
 Path to the Apps Assets folder will be /ext/apps_assets/hello_world
@@ -55,42 +53,6 @@ int32_t hello_world(void* p) {
 }
 ```
 
-### Simple GUI app (does nothing)
+### Studying
 
-```c
-#include <furi.h>
-#include <gui/gui.h>
-
-typedef struct {
-    Gui* gui;
-    ViewPort* view_port;
-} CounterApp;
-
-void counter_app_free(CounterApp* app) {
-    gui_remove_view_port(app->gui, app->view_port);
-    view_port_free(app->view_port);
-    furi_record_close(RECORD_GUI);
-    free(app);
-}
-
-CounterApp* counter_app_alloc() {
-    CounterApp* app = malloc(sizeof(CounterApp));
-    app->view_port = view_port_alloc();
-    app->gui = furi_record_open(RECORD_GUI);
-    gui_add_view_port(app->gui, app->view_port, GuiLayerFullscreen);
-    return app;
-}
-
-int32_t counter_app(void* p) {
-    UNUSED(p);
-
-    CounterApp* app = counter_app_alloc();
-
-    furi_delay_ms(2000);
-
-    counter_app_free(app);
-    return 0;
-}
-
-```
-
+* Simple GUI app (does nothing): [simple_app_1](studying/simple_app_1/)
