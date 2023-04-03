@@ -1,19 +1,28 @@
 # Coding for Flipper Zero :flipper:
-notes on writing applications for flipper zero
+A bunch of notes on writing applications for [Flipper Zero](https://flipperzero.one/).
 
-## Install and build
+## How to build an app
 
-1. Install dev formware on your Flipper. Honestly IDK if it nesessiry or not but it sawed me from the "API mismatch" error.
-2. Download Flipper Zero firmware:
-
+1. Install the dev firmware version on your Flipper with [qFlipper](https://github.com/flipperdevices/qFlipper) or from source code. To be honest, I don't know if this is needed or not, but it saved me from the "API mismatch" error.
+2. Download and build the Flipper Zero firmware:
     ```
     $ mkdir -p ~/flipperZero/official/
     $ cd ~/flipperZero/official/
     $ git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git ./
     $ ./fbt
     ```
-3. Move your app into `~/flipperZero/official/applications_user` folder.
-4. Build
+3. Move your app's code into `~/flipperZero/official/applications_user` folder:
+    ```sh
+    $ ~/flipperZero/official/flipperzero-firmware  tree applications_user
+    applications_user
+    ├── simple_app_1
+    │   ├── application.fam
+    │   ├── simple_app_1.c
+    │   └── CS.png
+    ├── ...
+    ...
+    ```
+5. Build your app:
 
     ```sh
     $ cd ~/flipperZero/official/
@@ -86,4 +95,4 @@ int32_t hello_world(void* p) {
 * [Flipper Hello World app](https://github.com/giolaq/helloflipper)
 * [The Flipper Zero user interface editor](https://ilin.pt/stuff/fui-editor/)
 * [FlipperZero_plugin_howto](https://github.com/csBlueChip/FlipperZero_plugin_howto) - detailed installation description + complicated and overcommented plugin code.
-* WARNING: this one is completely outdated though is a good step by step guide for newbies. [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin)
+* [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin) - WARNING: this one is completely outdated though is a good step by step guide for newbies. 
