@@ -95,4 +95,5 @@ int32_t hello_world(void* p) {
 * [Flipper Hello World app](https://github.com/giolaq/helloflipper)
 * [The Flipper Zero user interface editor](https://ilin.pt/stuff/fui-editor/)
 * [FlipperZero_plugin_howto](https://github.com/csBlueChip/FlipperZero_plugin_howto) - detailed installation description + complicated and overcommented plugin code.
-* [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin) - WARNING: this one is completely outdated though is a good step by step guide for newbies. 
+* [Your First Plugin](https://flipper.atmanos.com/docs/category/your-first-plugin) - WARNING: this one is completely outdated though is a good step by step guide for newbies.
+* [Flipper Zero dev tutorial with examples.](https://github.com/m1ch3al/flipper-zero-dev-tutorial) - looks good
