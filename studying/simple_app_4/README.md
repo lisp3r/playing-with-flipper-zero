@@ -1,4 +1,10 @@
-# Simple App 4
+# Simple App 4: Working with storage
+
+![pic](Screenshot-20230820-194031.png)
+
+New skills:
+
+1. Using storage api to list files from `assets/` directory
 
 From `storage.h`:
 
