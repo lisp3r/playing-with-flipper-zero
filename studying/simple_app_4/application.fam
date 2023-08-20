@@ -1,0 +1,11 @@
+App(
+    appid="simple_app_4",
+    name="Simple App 4",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="simple_app_4_main",
+    requires=["storage"],
+    stack_size=4 * 1024,
+    fap_icon="CS.png",
+    fap_category="Tools",
+    fap_file_assets="files",
+)
