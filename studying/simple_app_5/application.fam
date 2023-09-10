@@ -1,0 +1,14 @@
+App(
+    appid="simple_app_5",
+    name="Simple App 5",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="simple_app_5_app",
+    stack_size=1 * 1024,
+    order=90,
+    fap_category="Examples",
+	requires=[
+        "gui",
+        "dialogs"
+    ],
+    fap_icon="CS.png"
+)
