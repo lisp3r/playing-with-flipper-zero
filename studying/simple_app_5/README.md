@@ -1,8 +1,4 @@
-# Simple App 5: View Dispatcher and Scene Manager
-
-
-
-## Sources
+## Sources:
 
 - [@jamisonderek's](https://github.com/jamisonderek) flipper zero tutorials:
   - [Scenes Demo Application Tutorial](https://github.com/jamisonderek/flipper-zero-tutorials/tree/main/ui/basic_scenes) - basic Scene tutorial with rich description

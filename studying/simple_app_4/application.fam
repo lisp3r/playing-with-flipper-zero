@@ -6,6 +6,6 @@ App(
     requires=["storage"],
     stack_size=4 * 1024,
     fap_icon="CS.png",
-    fap_category="Tools",
+    fap_category="Examples",
     fap_file_assets="files",
 )
