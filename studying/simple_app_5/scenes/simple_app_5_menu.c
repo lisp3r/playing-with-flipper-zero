@@ -3,6 +3,7 @@
 
 
 enum {
+    SimpleApp5SceneMenuIndexSettings,
     SimpleApp5SceneMenuIndexAbout
 } SimpleApp5MenuIndex;
 
@@ -21,6 +22,14 @@ void simple_app_5_scene_menu_on_enter(void* context) {
     SimpleApp5* app = context;
 
     submenu_reset(app->submenu);
+
+    submenu_add_item(
+        app->submenu,
+        "Settings",
+        SimpleApp5SceneMenuIndexSettings,
+        simple_app_5_scene_menu_callback,
+        app
+    );
 
     submenu_add_item(
         app->submenu, 
@@ -46,6 +55,11 @@ bool simple_app_5_scene_menu_on_event(void* context, SceneManagerEvent event) {
         switch(event.event) {
         case SimpleApp5SceneMenuIndexAbout:
             scene_manager_next_scene(app->scene_manager, SimpleApp5SceneAbout);
+            consumed = true;
+            break;
+
+        case SimpleApp5SceneMenuIndexSettings:
+            scene_manager_next_scene(app->scene_manager, SimpleApp5SceneSettings);
             consumed = true;
             break;
         
