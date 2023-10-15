@@ -144,6 +144,12 @@ The directory must be empty and the file/directory must not be open
 
 ```c
 FS_Error storage_common_remove(Storage* storage, const char* path);
+bool storage_simply_remove(Storage* storage, const char* path);
+```
+Recursively removes a file/directory. The directory can be not empty:
+
+```c
+bool storage_simply_remove_recursive(Storage* storage, const char* path);
 ```
 
 ### Renames file/directory
@@ -172,6 +178,7 @@ FS_Error storage_common_merge(Storage* storage, const char* old_path, const char
 
 ```c
 FS_Error storage_common_mkdir(Storage* storage, const char* path);
+bool storage_simply_mkdir(Storage* storage, const char* path);
 ```
 
 ### Gets general information about the storage
@@ -200,28 +207,6 @@ FS_Error storage_common_migrate(Storage* storage, const char* source, const char
 
 ```c
 bool storage_common_exists(Storage* storage, const char* path);
-```
-
-### Removes a file/directory
-
-The directory must be empty and the file/directory must not be open
-
-```c
-bool storage_simply_remove(Storage* storage, const char* path);
-```
-
-### Recursively removes a file/directory
-
-The directory can be not empty
-
-```c
-bool storage_simply_remove_recursive(Storage* storage, const char* path);
-```
-
-### Creates a directory
-
-```c
-bool storage_simply_mkdir(Storage* storage, const char* path);
 ```
 
 ### Get next free filename
