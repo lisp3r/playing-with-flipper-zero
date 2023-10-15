@@ -60,7 +60,7 @@ bool storage_file_close(File* file);
 uint16_t storage_file_read(File* file, void* buff, uint16_t bytes_to_read);
 ```
 
-## Write bytes from a buffer to a file
+### Write bytes from a buffer to a file
 
 ```c
 uint16_t storage_file_write(File* file, const void* buff, uint16_t bytes_to_write);
