@@ -198,6 +198,32 @@ FS_Error storage_common_migrate(Storage* storage, const char* source, const char
 
 ### Check that file or dir exists
 
- ```c
+```c
 bool storage_common_exists(Storage* storage, const char* path);
+```
+
+## Error Functions
+
+### Retrieves the error text from the error id
+
+```c
+const char* storage_error_get_desc(FS_Error error_id);
+```
+
+### Retrieves the error id from the file object
+
+```c
+FS_Error storage_file_get_error(File* file);
+```
+
+### Retrieves the internal (storage-specific) error id from the file object
+
+```c
+int32_t storage_file_get_internal_error(File* file);
+```
+
+### Retrieves the error text from the file object
+
+```c
+const char* storage_file_get_error_desc(File* file);
 ```
