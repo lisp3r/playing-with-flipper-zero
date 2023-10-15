@@ -227,3 +227,252 @@ int32_t storage_file_get_internal_error(File* file);
 ```c
 const char* storage_file_get_error_desc(File* file);
 ```
+
+### Removes a file/directory
+
+The directory must be empty and the file/directory must not be open
+
+```c
+bool storage_simply_remove(Storage* storage, const char* path);
+```
+
+### Recursively removes a file/directory
+
+The directory can be not empty
+
+```c
+bool storage_simply_remove_recursive(Storage* storage, const char* path);
+```
+
+### Creates a directory
+
+```c
+bool storage_simply_mkdir(Storage* storage, const char* path);
+```
+
+### Get next free filename
+
+```c
+void storage_get_next_filename(Storage* storage, const char* dirname, const char* filename, const char* fileextension, FuriString* nextfilename, uint8_t max_len);
+```
+
+## Streams
+
+### `Stream` object and functions from `lib/toolbox/stream/stream.h`
+
+```c
+struct Stream {
+    const StreamVTable* vtable;
+};
+
+void stream_free(Stream* stream);
+void stream_clean(Stream* stream);
+```
+
+#### Gets the size of the stream
+
+```c
+size_t stream_size(Stream* stream);
+```
+
+#### Is the RW pointer is at the end of the stream
+
+```c
+bool stream_eof(Stream* stream);
+```
+
+#### Move the RW pointer
+
+```c
+bool stream_seek(Stream* stream, int32_t offset, StreamOffset offset_type);
+```
+
+#### Moves the RW pointer to the start
+
+```c
+bool stream_rewind(Stream* stream);
+```
+
+#### Gets the value of the RW pointer
+
+```c
+size_t stream_tell(Stream* stream);
+```
+
+#### Read from stream
+
+Read N bytes from stream:
+
+```c
+size_t stream_read(Stream* stream, uint8_t* data, size_t count);
+```
+
+Read line from a stream (supports LF and CRLF line endings):
+
+```c
+bool stream_read_line(Stream* stream, FuriString* str_result);
+```
+
+#### Seek to next occurrence of the character
+
+```c
+bool stream_seek_to_char(Stream* stream, char c, StreamDirection direction);
+```
+
+#### Write to the stream
+
+Write N bytes to the stream:
+
+```c
+size_t stream_write(Stream* stream, const uint8_t* data, size_t size);
+```
+
+Write char to the stream:
+
+```c
+size_t stream_write_char(Stream* stream, char c);
+```
+
+Write string to the stream:
+
+```c
+size_t stream_write_string(Stream* stream, FuriString* string);
+```
+
+Write const char* to the stream:
+
+```c
+size_t stream_write_cstring(Stream* stream, const char* string);
+```
+
+Write formatted string to the stream:
+
+```c
+size_t stream_write_format(Stream* stream, const char* format, ...)
+```
+
+Write formatted string to the stream, va_list version:
+
+```c
+size_t stream_write_vaformat(Stream* stream, const char* format, va_list args);
+```
+
+#### Insert chars to the stream
+
+Insert N chars to the stream, starting at the current pointer:
+
+```c
+bool stream_insert(Stream* stream, const uint8_t* data, size_t size);
+```
+
+Insert char to the stream:
+
+```c
+bool stream_insert_char(Stream* stream, char c);
+```
+
+Insert string to the stream:
+
+```c
+bool stream_insert_string(Stream* stream, FuriString* string);
+```
+
+Insert const char* to the stream:
+
+```c
+bool stream_insert_cstring(Stream* stream, const char* string);
+```
+
+Insert formatted string to the stream:
+
+```c
+bool stream_insert_format(Stream* stream, const char* format, ...)
+```
+
+Insert formatted string to the stream, va_list version:
+
+```c
+bool stream_insert_vaformat(Stream* stream, const char* format, va_list args);
+```
+
+#### Delete from the stream
+
+Delete N chars from the stream and write data by calling write_callback(context):
+
+```c
+bool stream_delete_and_insert(Stream* stream, size_t delete_size, StreamWriteCB write_callback, const void* context);
+```
+
+Delete N chars from the stream and insert char to the stream:
+
+```c
+bool stream_delete_and_insert_char(Stream* stream, size_t delete_size, char c);
+```
+
+Delete N chars from the stream and insert string to the stream:
+
+```c
+bool stream_delete_and_insert_string(Stream* stream, size_t delete_size, FuriString* string);
+```
+
+Delete N chars from the stream and insert const char* to the stream:
+
+```c
+bool stream_delete_and_insert_cstring(Stream* stream, size_t delete_size, const char* string);
+```
+
+Delete N chars from the stream and insert formatted string to the stream:
+
+```c
+bool stream_delete_and_insert_format(Stream* stream, size_t delete_size, const char* format, ...)
+```
+
+Delete N chars from the stream and insert formatted string to the stream, va_list version:
+
+```c
+bool stream_delete_and_insert_vaformat(Stream* stream, size_t delete_size, const char* format, va_list args);
+```
+
+Remove N chars from the stream, starting at the current pointer. The size may be larger than stream size, the stream will be cleared from current RW pointer to the end.
+
+```c
+bool stream_delete(Stream* stream, size_t size);
+```
+
+#### Copy data from one stream to another
+
+Copy data from one stream to another. Data will be copied from current RW pointer and to current RW pointer.
+
+```c
+size_t stream_copy(Stream* stream_from, Stream* stream_to, size_t size);
+```
+
+Copy data from one stream to another. Data will be copied from start of one stream and to start of other stream.
+
+```c
+size_t stream_copy_full(Stream* stream_from, Stream* stream_to);
+```
+
+#### Splits one stream into two others. The original stream will remain untouched.
+
+```c
+bool stream_split(Stream* stream, Stream* stream_left, Stream* stream_right);
+```
+
+#### Loads data to the stream from a file. Data will be loaded to the current RW pointer. RW pointer will be moved to the end of the stream.
+
+```c
+size_t stream_load_from_file(Stream* stream, Storage* storage, const char* path);
+```
+
+#### Writes data from a stream to a file. Data will be saved starting from the current RW pointer. RW pointer will be moved to the end of the stream.
+
+```c
+size_t stream_save_to_file(Stream* stream, Storage* storage, const char* path, FS_OpenMode mode);
+```
+
+#### Dump stream inner data (size, RW position, content)
+
+```c
+void stream_dump_data(Stream* stream);
+```
