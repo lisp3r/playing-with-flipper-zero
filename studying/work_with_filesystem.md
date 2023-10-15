@@ -321,135 +321,80 @@ bool stream_seek_to_char(Stream* stream, char c, StreamDirection direction);
 
 #### Write to the stream
 
-Write N bytes to the stream:
-
 ```c
+// Write N bytes to the stream
 size_t stream_write(Stream* stream, const uint8_t* data, size_t size);
-```
 
-Write char to the stream:
-
-```c
+// Write char to the stream
 size_t stream_write_char(Stream* stream, char c);
-```
 
-Write string to the stream:
-
-```c
+// Write string to the stream
 size_t stream_write_string(Stream* stream, FuriString* string);
-```
 
-Write const char* to the stream:
-
-```c
+// Write const char* to the stream
 size_t stream_write_cstring(Stream* stream, const char* string);
-```
 
-Write formatted string to the stream:
-
-```c
+// Write formatted string to the stream
 size_t stream_write_format(Stream* stream, const char* format, ...)
-```
 
-Write formatted string to the stream, va_list version:
-
-```c
+// Write formatted string to the stream, va_list version
 size_t stream_write_vaformat(Stream* stream, const char* format, va_list args);
 ```
 
 #### Insert chars to the stream
 
-Insert N chars to the stream, starting at the current pointer:
-
 ```c
+// Insert N chars to the stream, starting at the current pointer
 bool stream_insert(Stream* stream, const uint8_t* data, size_t size);
-```
 
-Insert char to the stream:
-
-```c
+// Insert char to the stream
 bool stream_insert_char(Stream* stream, char c);
-```
 
-Insert string to the stream:
-
-```c
+// Insert string to the stream
 bool stream_insert_string(Stream* stream, FuriString* string);
-```
 
-Insert const char* to the stream:
-
-```c
+// Insert const char* to the stream
 bool stream_insert_cstring(Stream* stream, const char* string);
-```
 
-Insert formatted string to the stream:
-
-```c
+// Insert formatted string to the stream
 bool stream_insert_format(Stream* stream, const char* format, ...)
-```
 
-Insert formatted string to the stream, va_list version:
-
-```c
+// Insert formatted string to the stream, va_list version:
 bool stream_insert_vaformat(Stream* stream, const char* format, va_list args);
 ```
 
 #### Delete from the stream
 
-Delete N chars from the stream and write data by calling write_callback(context):
-
 ```c
+// Delete N chars from the stream and write data by calling write_callback(context)
 bool stream_delete_and_insert(Stream* stream, size_t delete_size, StreamWriteCB write_callback, const void* context);
-```
 
-Delete N chars from the stream and insert char to the stream:
-
-```c
+// Delete N chars from the stream and insert char to the stream
 bool stream_delete_and_insert_char(Stream* stream, size_t delete_size, char c);
-```
 
-Delete N chars from the stream and insert string to the stream:
-
-```c
+// Delete N chars from the stream and insert string to the stream
 bool stream_delete_and_insert_string(Stream* stream, size_t delete_size, FuriString* string);
-```
 
-Delete N chars from the stream and insert const char* to the stream:
-
-```c
+// Delete N chars from the stream and insert const char* to the stream:
 bool stream_delete_and_insert_cstring(Stream* stream, size_t delete_size, const char* string);
-```
 
-Delete N chars from the stream and insert formatted string to the stream:
-
-```c
+// Delete N chars from the stream and insert formatted string to the stream:
 bool stream_delete_and_insert_format(Stream* stream, size_t delete_size, const char* format, ...)
-```
 
-Delete N chars from the stream and insert formatted string to the stream, va_list version:
-
-```c
+// Delete N chars from the stream and insert formatted string to the stream, va_list version:
 bool stream_delete_and_insert_vaformat(Stream* stream, size_t delete_size, const char* format, va_list args);
-```
 
-Remove N chars from the stream, starting at the current pointer. The size may be larger than stream size, the stream will be cleared from current RW pointer to the end.
-
-```c
+// Remove N chars from the stream, starting at the current pointer. The size may be larger than stream size, the stream will be cleared from current RW pointer to the end.
 bool stream_delete(Stream* stream, size_t size);
 ```
 
 #### Copy data from one stream to another
 
-Copy data from one stream to another. Data will be copied from current RW pointer and to current RW pointer.
-
 ```c
+// Copy data from one stream to another. Data will be copied from current RW pointer and to current RW pointer.
 size_t stream_copy(Stream* stream_from, Stream* stream_to, size_t size);
-```
 
-Copy data from one stream to another. Data will be copied from start of one stream and to start of other stream.
-
-```c
+// Copy data from one stream to another. Data will be copied from start of one stream and to start of other stream.
 size_t stream_copy_full(Stream* stream_from, Stream* stream_to);
 ```
 
