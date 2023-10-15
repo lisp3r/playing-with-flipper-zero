@@ -301,15 +301,11 @@ size_t stream_tell(Stream* stream);
 
 #### Read from stream
 
-Read N bytes from stream:
-
 ```c
+// Read N bytes from stream
 size_t stream_read(Stream* stream, uint8_t* data, size_t count);
-```
 
-Read line from a stream (supports LF and CRLF line endings):
-
-```c
+// Read line from a stream (supports LF and CRLF line endings)
 bool stream_read_line(Stream* stream, FuriString* str_result);
 ```
 
