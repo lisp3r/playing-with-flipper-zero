@@ -2,9 +2,12 @@
 #include <gui/gui.h>
 #include <input/input.h>
 #include <stdlib.h>
+#include <gui/elements.h>
 
 
-#define START_LIVES 40;
+#define START_LIVES 40
+#define MAX_LIVES 200
+
 #define TAG "mtg_life_counter"
 
 
@@ -24,14 +27,15 @@ static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
     furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
     canvas_clear(canvas);
 
-    canvas_draw_str_aligned(canvas, 64, 10, AlignCenter, AlignCenter, "Counter :)");
+    canvas_set_font(canvas, FontPrimary);
+    canvas_draw_str(canvas, 21, 11, "MTG Life Counter");
     
     if(app->counter == 0) {
-        canvas_draw_str(canvas, 37, 31, "Death");
+        canvas_draw_str(canvas, 49, 40, "Death!");
     } else if(app->counter > 0) {
         char tmp[11];
         snprintf(tmp, sizeof(tmp), "%d", app->counter);
-        canvas_draw_str(canvas, 37, 31, tmp);
+        canvas_draw_str(canvas, 57, 40, tmp);
     }
 
     furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
@@ -91,9 +95,17 @@ int32_t life_counter_main(void* p) {
                 running = false;
                 break;
             } else if (input.key == InputKeyUp) {
-                app->counter++;
+                if (app->counter >= MAX_LIVES) {
+                    // pass
+                } else {
+                    app->counter++;
+                }
             } else if (input.key == InputKeyDown) {
-                app->counter--;
+                if (app->counter == 0) {
+                    // pass
+                } else {
+                    app->counter--;
+                }
             }
             furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
             view_port_update(app->view_port);
