@@ -5,13 +5,13 @@
 
 
 #define START_LIVES 40;
-
 #define TAG "mtg_life_counter"
+
 
 typedef struct {
     Gui* gui;
     ViewPort* view_port;
-    // FuriMutex** mutex;
+    FuriMutex** mutex;
     FuriMessageQueue* event_queue;
 
     int counter;
@@ -21,7 +21,7 @@ typedef struct {
 static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
     LifeCounterApp* app = ctx;
 
-    // furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
+    furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
     canvas_clear(canvas);
 
     canvas_draw_str_aligned(canvas, 64, 10, AlignCenter, AlignCenter, "Counter :)");
@@ -34,7 +34,7 @@ static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
         canvas_draw_str(canvas, 37, 31, tmp);
     }
 
-    // furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
+    furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
 }
 
 
@@ -54,7 +54,7 @@ LifeCounterApp* life_counter_alloc() {
     app->gui = furi_record_open(RECORD_GUI);
     gui_add_view_port(app->gui, app->view_port, GuiLayerFullscreen);
 
-    // app->mutex = furi_mutex_alloc(FuriMutexTypeNormal);
+    app->mutex = furi_mutex_alloc(FuriMutexTypeNormal);
     app->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));  // TODO: change to a custom event type
 
     app->counter = START_LIVES;
@@ -66,7 +66,7 @@ void life_counter_free(LifeCounterApp* app) {
     gui_remove_view_port(app->gui, app->view_port);
     view_port_free(app->view_port);
 
-    // furi_mutex_free(app->mutex);
+    furi_mutex_free(app->mutex);
     furi_message_queue_free(app->event_queue);
 
     furi_record_close(RECORD_GUI);
@@ -85,7 +85,7 @@ int32_t life_counter_main(void* p) {
     while (running) {
         InputEvent input;
         while(furi_message_queue_get(app->event_queue, &input, FuriWaitForever) == FuriStatusOk) {
-            // furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
+            furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
 
             if(input.key == InputKeyBack) {
                 running = false;
@@ -95,11 +95,11 @@ int32_t life_counter_main(void* p) {
             } else if (input.key == InputKeyDown) {
                 app->counter--;
             }
-            // furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
+            furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
             view_port_update(app->view_port);
         }
     }
-    // furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
+    furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
     life_counter_free(app);
     return 0;
 }

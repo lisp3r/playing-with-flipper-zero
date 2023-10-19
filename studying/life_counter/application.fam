@@ -7,4 +7,5 @@ App(
         "gui",
     ],
     fap_category="Misc",
+    fap_icon="icons/icon.png",
 )
