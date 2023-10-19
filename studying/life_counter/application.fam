@@ -1,0 +1,10 @@
+App(
+    appid="life_counter",
+    name="MTG Life Counter",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="life_counter_main",
+    requires=[
+        "gui",
+    ],
+    fap_category="Misc",
+)
