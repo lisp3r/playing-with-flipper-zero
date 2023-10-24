@@ -4,11 +4,21 @@
 #include <stdlib.h>
 #include <gui/elements.h>
 
+#include "life_counter_icons.h"
+
 
 #define START_LIVES 40
 #define MAX_LIVES 200
 
 #define TAG "mtg_life_counter"
+
+#define PLAYER_1_X 40
+
+#define PLAYER_1_Y 35
+
+#define PLAYER_2_X 70
+
+#define PLAYER_2_Y 35
 
 
 typedef struct {
@@ -17,7 +27,9 @@ typedef struct {
     FuriMutex** mutex;
     FuriMessageQueue* event_queue;
 
-    int counter;
+    int counter1;
+    int counter2;
+    bool death;
 } LifeCounterApp;
 
 
@@ -27,16 +39,47 @@ static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
     furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
     canvas_clear(canvas);
 
+    // elements_frame(canvas, 0, 0, 128, 64);
+
+    elements_bold_rounded_frame(canvas, 0, 0, 127, 63);
+
+    elements_bold_rounded_frame(canvas, 30, 30, 20, 20);
+
+    // 128 x 64
+    // 64 * 2 x 64
+
     canvas_set_font(canvas, FontPrimary);
-    canvas_draw_str(canvas, 21, 11, "MTG Life Counter");
-    
-    if(app->counter == 0) {
-        canvas_draw_str(canvas, 49, 40, "Death!");
-    } else if(app->counter > 0) {
+    // canvas_draw_str(canvas, 35, 15, "Life Counter");
+    // canvas_draw_icon(canvas, 20, 10, &I_white_mana_17x17);
+    // canvas_draw_icon(canvas, 40, 10, &I_blue_mana_17x17);
+    // canvas_draw_icon(canvas, 60, 10, &I_green_mana_17x17);
+    // canvas_draw_icon(canvas, 80, 10, &I_black_mana_17x17);
+
+
+    if (app->counter1 == 0) {
+        app->death = true;
+        canvas_draw_str(canvas, PLAYER_1_X, PLAYER_1_Y, "Death!");
+    } else if(app->counter2 == 0) {
+        app->death = true;
+        canvas_draw_str(canvas, PLAYER_2_X, PLAYER_2_Y, "Death!");
+    } else {
         char tmp[11];
-        snprintf(tmp, sizeof(tmp), "%d", app->counter);
-        canvas_draw_str(canvas, 57, 40, tmp);
+        snprintf(tmp, sizeof(tmp), "%d", app->counter1);
+        canvas_draw_str(canvas, PLAYER_1_X, PLAYER_1_Y, tmp);
+        snprintf(tmp, sizeof(tmp), "%d", app->counter2);
+        canvas_draw_str(canvas, PLAYER_2_X, PLAYER_2_Y, tmp);
     }
+
+
+    
+    // if(app->counter == 0) {
+    //     canvas_draw_str(canvas, 49, 40, "Death!");
+    //     elements_button_left(canvas, "Again");
+    // } else if(app->counter > 0) {
+    //     char tmp[11];
+    //     snprintf(tmp, sizeof(tmp), "%d", app->counter);
+    //     canvas_draw_str(canvas, 57, 40, tmp);
+    // }
 
     furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);
 }
@@ -44,6 +87,7 @@ static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
 
 static void life_counter_input_callback(InputEvent* input_event, void* ctx) {
     LifeCounterApp* app = ctx;
+    // process short presses
     if(input_event->type == InputTypeShort) {
         furi_message_queue_put(app->event_queue, input_event, 0);
     }
@@ -61,7 +105,9 @@ LifeCounterApp* life_counter_alloc() {
     app->mutex = furi_mutex_alloc(FuriMutexTypeNormal);
     app->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));  // TODO: change to a custom event type
 
-    app->counter = START_LIVES;
+    app->counter1 = START_LIVES;
+    app->counter2 = START_LIVES;
+    app->death = false;
     return app;
 }
 
@@ -95,16 +141,27 @@ int32_t life_counter_main(void* p) {
                 running = false;
                 break;
             } else if (input.key == InputKeyUp) {
-                if (app->counter >= MAX_LIVES) {
+                if (app->counter1 >= MAX_LIVES) {
                     // pass
                 } else {
-                    app->counter++;
+                    app->counter1++;
                 }
             } else if (input.key == InputKeyDown) {
-                if (app->counter == 0) {
+                if (app->counter1 == 0) {
                     // pass
                 } else {
-                    app->counter--;
+                    app->counter1--;
+                }
+            } else if (input.key == InputKeyLeft) {
+                if (app->counter2 >= MAX_LIVES) {
+                    // pass
+                } else {
+                    app->counter2++;
+                }
+            } else if (input.key == InputKeyRight) {
+                 if (app->counter2 == 0) { // pass 
+                } else {
+                    app->counter2--;
                 }
             }
             furi_check(furi_mutex_release(app->mutex) == FuriStatusOk);

@@ -8,4 +8,5 @@ App(
     ],
     fap_category="Misc",
     fap_icon="icons/icon.png",
+    fap_icon_assets="icons"
 )
