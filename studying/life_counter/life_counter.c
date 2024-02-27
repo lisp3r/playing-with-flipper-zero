@@ -39,11 +39,20 @@ static void life_counter_draw_callback(Canvas* const canvas, void* ctx) {
     furi_check(furi_mutex_acquire(app->mutex, FuriWaitForever) == FuriStatusOk);
     canvas_clear(canvas);
 
-    // elements_frame(canvas, 0, 0, 128, 64);
+    elements_frame(canvas, 0, 0, 128, 64);
 
-    elements_bold_rounded_frame(canvas, 0, 0, 127, 63);
+    //elements_bold_rounded_frame(canvas, 0, 0, 127, 63);
+    // canvas_draw_icon(canvas, 20, 3, &I_button_up_16x16);
+    // canvas_draw_icon(canvas, 20, 45, &I_button_down_16x16);
 
-    elements_bold_rounded_frame(canvas, 30, 30, 20, 20);
+    elements_frame(canvas, 20, 3, 16, 16);
+    elements_frame(canvas, 20, 45, 16, 16);
+
+    canvas_draw_icon(canvas, 24, 26, &I_4_right_6x7);
+    canvas_draw_icon(canvas, 24, 34, &I_4_right_6x7);
+
+    // 16+16 = 32
+
 
     // 128 x 64
     // 64 * 2 x 64

@@ -14,13 +14,27 @@ This app is WAY MORE difficult then the previous ones.
 
 ## View
 
-A **View** is the objects that are added to the **ViewDispatcher** and referenced later in the ViewDispatcher by **id**. A **view** operates through callbacks.
+- A View is the objects that are added to the [ViewDispatcher](#viewdispatcher) and referenced later in the ViewDispatcher by id. 
+- operates through callbacks:
+  - view_set_draw_callback
+  - view_set_input_callback
+  - lot more callbacks that can also be registered with a View
+- set a custom callback: `view_dispatcher_send_custom_event method`
+- set a previous callback: it will be invoked when the Back button is pressed.
+  - If the previous callback returns a view id then the navigation is changed to view associated with that id. 
+- There are also enter/exit callbacks that can be registered to know when a View is switched to/or away from.
+
+##
+
+
+
+A **View** is the objects that are added to the [ViewDispatcher](#viewdispatcher) and referenced later in the ViewDispatcher by **id**. A **view** operates through callbacks.
 
 **View** assosiated with **Modules**. There are many Gui modules for various tasks, like input, file dialogs, menus, etc. See: [A Visual Guide to Flipper Zero GUI Modules](https://brodan.biz/blog/a-visual-guide-to-flipper-zero-gui-components/)
 
-There are many pre-built modules, which expose a configured View object. You can use the `View*` that is returned from the Modules `_get_view(...)` function.
+There are many pre-built modules, which expose a configured View object. You can use the `View*` that is returned from the module's `_get_view(...)` function.
 
-Get View* object from Menu module object:
+Get `View*` object from Menu module object:
 
 ```c
 #include <gui/modules/menu.h>
@@ -29,7 +43,7 @@ Menu* menu = menu_alloc();
 View* view = menu_get_view(menu);
 ```
 
-Get View* object from PopUp module object:
+Get `View*` object from PopUp module object:
 
 ```c
 #include <gui/modules/popup.h>
@@ -43,11 +57,10 @@ Callbacks:
 - custom callback - invoked by the `view_dispatcher_send_custom_event` method. 
 - previous callback - invoked when the Back button is pressed.
 
-    If the *previous callback* returns a view id (that was previously registered with the ViewDispatcher) then the navigation is changed to view associated with that id. 
-
+    If the previous callback returns a view id (that was previously registered with the ViewDispatcher) then the navigation is changed to view associated with that id. 
 - enter/exit callbacks
 
-I do not use vanilla View objects here because Modules is enough for now. They implemented some of the callbacks.
+I do not use vanilla View objects here because existing Modules is suitable for my needs. If we take a look at the one of the Modules we will see that they have impelented the callbacks:
 
 ```c
 // from applications/services/gui/modules/menu.c
