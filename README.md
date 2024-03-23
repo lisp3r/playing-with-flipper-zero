@@ -3,8 +3,8 @@ A bunch of notes on writing applications for [Flipper Zero](https://flipperzero.
 
 ## How to build an app
 
-1. Install the dev firmware version on your Flipper with [qFlipper](https://github.com/flipperdevices/qFlipper) or from source code. To be honest, I don't know if this is needed or not, but it saved me from the "API mismatch" error.
-2. Download and build the Flipper Zero firmware:
+1. Install the dev firmware version on your Flipper with [qFlipper](https://github.com/flipperdevices/qFlipper) or from the source code. To be honest, I don't know if this is needed or not, but it saves me from the "API mismatch" error.
+2. Clone and build the Flipper Zero firmware:
     ```
     $ mkdir -p ~/flipperZero/official/
     $ cd ~/flipperZero/official/
