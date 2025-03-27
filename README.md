@@ -86,6 +86,9 @@ int32_t hello_world(void* p) {
 
 * Simple GUI app (does nothing): [simple_app_1](studying/simple_app_1/)
 * Simple GUI app (does nothing) with input callback: [simple_app_2](studying/simple_app_2/)
+* This app is a standard "hello world" app with something moving on the screen, position counting and "Esc" button: [simple_app_3](studying/simple_app_3/)
+* Simple App 4: Working with storage: [simple_app_4](studying/simple_app_4/)
+* 
 
 ## Resourses
 * [Flipper Zero Documentation](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/documentation) - incomplete but still useful. Read it first.
